@@ -1,0 +1,94 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("fonts/OpenSans-Regular.ttf") format("truetype");
+}
+
+html {
+    margin: 0;
+    overflow-y: hidden;
+}
+
+h1 {
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+}
+
+p {
+    font-family: "Open Sans", sans-serif;
+}
+
+#game-container {
+    height: 494px;
+    width: 494px;
+    border: 1px solid;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -247px;
+    margin-left: -247px;
+    padding: 0 3px;
+}
+
+.unicode-maze-game {
+    font-family: "Lucida Sans Unicode", sans-serif;
+    font-size: 20px;
+    width: 232px;
+    line-height: 26px;
+    margin: 131px;
+}
+
+.enter-to-start {
+    font-family: "Montserrat", sans-serif;
+    font-size: 28px;
+    line-height: 24px;
+    text-align: center;
+    width: 290px;
+    margin: 173px 102px;
+}
+
+input[type=text] {
+    border: 1px solid;
+    padding: 2px;
+    font-family: "Open Sans", sans-serif;
+}
+
+#win-message {
+    visibility: hidden;
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+    position: fixed;
+    top: 605px;
+    left: 50%;
+    margin-left: -55px;
+    width: 110px;
+}
+
+#timer {
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    position: fixed;
+    top: 626px;
+    left: 866px;
+    width: 120px;
+}
+
+#playername {
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    position: fixed;
+    top: 626px;
+    left: 470px;
+    width: 250px;
+}
+
+.scores {
+    font-family: Montserrat, sans-serif;
+    text-align: left;
+    width: 460px;
+    visibility: hidden;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unicode Maze Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="maze.js" charset="utf-8"></script>
+</head>
+<body>
+    <h1>Unicode Maze Game</h1>
+    <div id="game-container">
+        <div class="unicode-maze-game enter-to-start">Use WASD or Arrow Keys to Move.<br><br>To start, please enter your player name:
+            <input type="text" maxlength="15" onkeydown="if (event.keyCode === 13) {
+                game_screen.removeClass('enter-to-start');
+                import_Maze(1);
+                game_screen.html(currentMaze.level);
+                playerName += $(this).val();
+                $('#playername').html('Player: ' + playerName);
+                game_started = true;
+                timer();
+            }" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </div>
+    </div>
+    <div id="playername">Player: </div>
+    <h2 id="win-message">You Win!</h2>
+    <div id="timer">Time: 00:00</div>
+    <ol class="scores" style="border-bottom: 1px solid;">Leaderboard</ol>
+    <script>
+        var game_screen = $('.unicode-maze-game.enter-to-start');
+        var playerName = "";
+        var game_started = false;
+
+        var seconds = 0;
+        var minutes = 0;
+        var t;
+
+        window.addEventListener("keydown", function(e) { // Disables scrolling with the arrow keys and spacebar. From https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+            // space and arrow keys
+            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+        }, false);
+
+        function get_goal() {
+                currentMaze.number += 1; // Increment number
+                import_Maze(currentMaze.number); // Import maze with number (would have just been incremented)
+                if (currentMaze.number === 2) {
+                    game_screen.css("width", "310px");
+                    game_screen.css("margin", "92px");
+                } else if (currentMaze.number === 3) {
+                    game_screen.css("width", "336px");
+                    game_screen.css("margin", "79px");
+                } else if (currentMaze.number === 4) {
+                    game_screen.css("width", "494px");
+                    game_screen.css("margin", "auto");
+                } else if (currentMaze.number === 5) {
+                    $('#win-message').css("visibility", "visible");
+                    clearTimeout(t);
+                    // send time to sql
+                    // get scores
+                    return true;
+                }
+        }
+
+        $(document).keydown(function (e) {
+            if (e.which === 37 && game_started === true || e.which === 65 && game_started === true) {
+                move_player("left");
+                game_screen.html(currentMaze.level);
+            }
+            if (e.which === 38 && game_started === true || e.which === 87 && game_started === true) {
+                move_player("up");
+                game_screen.html(currentMaze.level);
+            }
+            if (e.which === 39 && game_started === true || e.which === 68 && game_started === true) {
+                move_player("right");
+                game_screen.html(currentMaze.level);
+            }
+            if (e.which === 40 && game_started === true || e.which === 83 && game_started === true) {
+                move_player("down");
+                game_screen.html(currentMaze.level);
+            }
+        });
+
+        function add() {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+
+            $('#timer').html("Time: " + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds));
+
+            timer();
+        }
+        function timer() {
+            t = setTimeout(add, 1000);
+        }
+    </script>
+</body>
+</html>
